@@ -12,5 +12,6 @@ import java.util.List;
 public interface IssueRecordRepository extends JpaRepository<IssueRecord, Long> {
     long countByMemberAndActiveStatus(Member member, Boolean activeStatus);
     List<IssueRecord> findByBookAndActiveStatus(Book book, Boolean activeStatus);
+    List<IssueRecord> findByMemberAndActiveStatus(Member member, Boolean activeStatus);
     List<IssueRecord> findByActiveStatus(Boolean activeStatus);
 }

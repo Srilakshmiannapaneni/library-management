@@ -14,5 +14,6 @@ public class BookResponseDTO {
     private Long id;
     private String title;
     private String author;
+    private String coverImage;
     private AvailabilityStatus availabilityStatus;
 }

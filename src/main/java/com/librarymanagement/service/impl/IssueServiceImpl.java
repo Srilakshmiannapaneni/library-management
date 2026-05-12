@@ -110,6 +110,7 @@ public class IssueServiceImpl implements IssueService {
                 .id(issueRecord.getBook().getId())
                 .title(issueRecord.getBook().getTitle())
                 .author(issueRecord.getBook().getAuthor())
+                .coverImage(issueRecord.getBook().getCoverImage())
                 .availabilityStatus(issueRecord.getBook().getAvailabilityStatus())
                 .build();
 

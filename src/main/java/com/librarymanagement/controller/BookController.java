@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import static com.librarymanagement.util.AuthRoleUtils.ensureAdmin;
 
 import java.util.List;
 
@@ -23,7 +24,10 @@ public class BookController {
 
     @PostMapping
     @Operation(summary = "Add a new book", description = "Adds a new book to the library")
-    public ResponseEntity<BookResponseDTO> addBook(@Valid @RequestBody BookRequestDTO bookRequestDTO) {
+    public ResponseEntity<BookResponseDTO> addBook(
+            @RequestHeader(value = "X-User-Role", required = false) String userRole,
+            @Valid @RequestBody BookRequestDTO bookRequestDTO) {
+        ensureAdmin(userRole);
         return new ResponseEntity<>(bookService.addBook(bookRequestDTO), HttpStatus.CREATED);
     }
 
@@ -53,13 +57,20 @@ public class BookController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Update book details", description = "Updates the title and author of an existing book")
-    public ResponseEntity<BookResponseDTO> updateBook(@PathVariable Long id, @Valid @RequestBody BookRequestDTO bookRequestDTO) {
+    public ResponseEntity<BookResponseDTO> updateBook(
+            @RequestHeader(value = "X-User-Role", required = false) String userRole,
+            @PathVariable Long id,
+            @Valid @RequestBody BookRequestDTO bookRequestDTO) {
+        ensureAdmin(userRole);
         return ResponseEntity.ok(bookService.updateBook(id, bookRequestDTO));
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete book", description = "Deletes a book from the library")
-    public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteBook(
+            @RequestHeader(value = "X-User-Role", required = false) String userRole,
+            @PathVariable Long id) {
+        ensureAdmin(userRole);
         bookService.deleteBook(id);
         return ResponseEntity.noContent().build();
     }

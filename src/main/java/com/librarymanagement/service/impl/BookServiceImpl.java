@@ -29,6 +29,7 @@ public class BookServiceImpl implements BookService {
         Book book = Book.builder()
                 .title(bookRequestDTO.getTitle())
                 .author(bookRequestDTO.getAuthor())
+                .coverImage(bookRequestDTO.getCoverImage())
                 .availabilityStatus(AvailabilityStatus.AVAILABLE)
                 .build();
         Book savedBook = bookRepository.save(book);
@@ -72,6 +73,7 @@ public class BookServiceImpl implements BookService {
 
         book.setTitle(bookRequestDTO.getTitle());
         book.setAuthor(bookRequestDTO.getAuthor());
+        book.setCoverImage(bookRequestDTO.getCoverImage());
 
         Book updatedBook = bookRepository.save(book);
         return mapToResponseDTO(updatedBook);
@@ -91,6 +93,7 @@ public class BookServiceImpl implements BookService {
                 .id(book.getId())
                 .title(book.getTitle())
                 .author(book.getAuthor())
+                .coverImage(book.getCoverImage())
                 .availabilityStatus(book.getAvailabilityStatus())
                 .build();
     }
