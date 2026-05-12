@@ -37,8 +37,9 @@ const IssuesPage = () => {
     setLoading(true);
     setError(null);
     try {
-      await api.post('/issues/issue', null, {
-        params: { bookId: issueData.bookId, memberId: issueData.memberId }
+      await api.post('/issues/issue', {
+        bookId: Number(issueData.bookId),
+        memberId: Number(issueData.memberId)
       });
       setIssueData({ bookId: '', memberId: '' });
       fetchData();

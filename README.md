@@ -1,29 +1,45 @@
 # Library Book Issue & Return Management System
 
-A robust REST-based backend application for managing library books, members, and issue/return operations. Built with Spring Boot 3, Java 17, Spring Data JPA, and MySQL.
+A RESTful backend for managing library books, members, and book issue/return operations using Java and Spring Boot with MySQL.
 
-## Features
+## Functional Coverage
 
-- **Book Management:** Add, search (by title/author), update, delete, and check availability of books.
-- **Member Management:** Register, view details, get issued books, and delete members.
-- **Issue & Return Operations:** Issue books to members (max 3 books per member), return books, and list active issues.
-- **Exception Handling:** Centralized exception handling with custom exceptions.
-- **Swagger Documentation:** API documentation using OpenAPI/Swagger.
+### Book Management
+- Add a new book
+- View all books
+- View available books
+- Search by title or author
+
+### Member Management
+- Register a member
+- View member details
+- View books issued to a member
+
+### Issue Book
+- Issue a book to a member
+- Book must be available
+- Member can issue a maximum of 3 books
+
+### Return Book
+- Return an issued book
+- Update return date
+- Mark book as available
 
 ## Prerequisites
 
-- **Java 17** installed.
+- **Java 17+** installed.
 - **Maven** installed.
 - **MySQL** installed and running on default port `3306`.
 
 ## Setup Instructions
 
 1. **Database Configuration:**
-   Create a database named `library_db` in your MySQL server.
-   ```sql
-   CREATE DATABASE library_db;
+   The app uses `library_db` and can auto-create it (`createDatabaseIfNotExist=true`).
+   Set credentials through environment variables (recommended):
+   ```bash
+   DB_USERNAME=root
+   DB_PASSWORD=your_mysql_password
    ```
-   *Note: Update the MySQL username and password in `src/main/resources/application.properties` if they differ from root/your_password.*
 
 2. **Build the Application:**
    From the project root directory, run:
@@ -39,8 +55,9 @@ A robust REST-based backend application for managing library books, members, and
 
 ## API Documentation (Swagger)
 
-Once the application is running, you can access the Swagger UI to interact with and test all the REST APIs.
-- **Swagger URL:** [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+Once the application is running:
+- Swagger UI: [http://localhost:8082/swagger-ui/index.html](http://localhost:8082/swagger-ui/index.html)
+- OpenAPI JSON: [http://localhost:8082/v3/api-docs](http://localhost:8082/v3/api-docs)
 
 ## Sample JSON Requests
 
@@ -49,7 +66,8 @@ Once the application is running, you can access the Swagger UI to interact with 
 ```json
 {
   "title": "Clean Code",
-  "author": "Robert C. Martin"
+  "author": "Robert C. Martin",
+  "coverImage": "clean-code.jpg"
 }
 ```
 
@@ -74,6 +92,12 @@ Once the application is running, you can access the Swagger UI to interact with 
 ### 4. Return Book
 **PUT** `/api/issues/return/{issueId}`
 (No body needed)
+
+## Basic Workflow
+1. Add books
+2. Register members
+3. Issue books
+4. Return books
 
 ## Postman Collection Idea
 You can export the OpenAPI spec from `http://localhost:8080/v3/api-docs` and import it directly into Postman to automatically generate all requests, variables, and body schemas!

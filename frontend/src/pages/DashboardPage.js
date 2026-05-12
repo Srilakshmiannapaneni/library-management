@@ -43,7 +43,7 @@ const DashboardPage = () => {
 
   return (
     <div>
-      <h1 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '2rem' }}>Dashboard Overview</h1>
+      <h1 className="page-title">Dashboard Overview</h1>
       
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem' }}>
         {statCards.map((stat, index) => (
@@ -60,10 +60,10 @@ const DashboardPage = () => {
       </div>
       
       <div className="glass-panel" style={{ marginTop: '2rem', padding: '2rem' }}>
-        <h2 style={{ fontSize: '1.25rem', marginBottom: '1rem' }}>Welcome to LibraryManager</h2>
+        <h2 style={{ fontSize: '1.25rem', marginBottom: '1rem' }}>Welcome to your library workspace</h2>
         <p style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>
-          This is a premium, high-performance library management system built with Spring Boot and React. 
-          Use the navigation menu on the left to add books, register members, and manage book issues.
+          Track books, members, and active issues in one place. Use the left menu to quickly add books,
+          register members, and issue or return books during daily library operations.
         </p>
       </div>
     </div>

@@ -55,16 +55,15 @@ public class MemberServiceImpl implements MemberService {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Member not found with id: " + id));
 
-        // Get all active issue records for this member
-        List<IssueRecord> activeIssues = member.getIssueRecords().stream()
-                .filter(IssueRecord::getActiveStatus)
-                .collect(Collectors.toList());
+        // Query active issues directly to avoid lazy-loading issues when open-in-view is disabled.
+        List<IssueRecord> activeIssues = issueRecordRepository.findByMemberAndActiveStatus(member, true);
 
         return activeIssues.stream()
                 .map(issue -> BookResponseDTO.builder()
                         .id(issue.getBook().getId())
                         .title(issue.getBook().getTitle())
                         .author(issue.getBook().getAuthor())
+                        .coverImage(issue.getBook().getCoverImage())
                         .availabilityStatus(issue.getBook().getAvailabilityStatus())
                         .build())
                 .collect(Collectors.toList());

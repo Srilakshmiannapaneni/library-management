@@ -1,15 +1,15 @@
-@import url('https://fonts.googleapis.css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  --bg-dark: #0f172a;
-  --bg-card: #1e293b;
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
-  --primary: #3b82f6;
-  --primary-hover: #2563eb;
-  --success: #10b981;
-  --danger: #ef4444;
-  --border: rgba(255,255,255,0.1);
+  --bg-page: #f5f7fb;
+  --bg-card: #ffffff;
+  --text-main: #1f2937;
+  --text-muted: #6b7280;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --success: #0f9f6e;
+  --danger: #dc2626;
+  --border: #e5e7eb;
 }
 
 * {
@@ -20,7 +20,7 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: var(--bg-dark);
+  background-color: var(--bg-page);
   color: var(--text-main);
   min-height: 100vh;
 }
@@ -46,11 +46,10 @@ ul {
 
 /* Utilities */
 .glass-panel {
-  background: rgba(30, 41, 59, 0.7);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
 }
 
 .btn {
@@ -87,10 +86,10 @@ ul {
 .input-field {
   width: 100%;
   padding: 0.75rem 1rem;
-  background-color: rgba(15, 23, 42, 0.5);
+  background-color: #ffffff;
   border: 1px solid var(--border);
   border-radius: 8px;
-  color: white;
+  color: var(--text-main);
   font-family: 'Inter', sans-serif;
   transition: border-color 0.2s;
 }
@@ -125,7 +124,7 @@ ul {
 }
 
 .data-table tbody tr:hover {
-  background-color: rgba(255, 255, 255, 0.02);
+  background-color: #f9fafb;
 }
 
 .status-badge {
@@ -136,11 +135,75 @@ ul {
 }
 
 .status-available {
-  background-color: rgba(16, 185, 129, 0.1);
+  background-color: #e9f9f1;
   color: var(--success);
 }
 
 .status-issued {
-  background-color: rgba(239, 68, 68, 0.1);
+  background-color: #feecec;
   color: var(--danger);
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #111827;
+}
+
+.book-cover {
+  width: 52px;
+  height: 72px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  background-color: #f3f4f6;
+}
+
+.book-cover-fallback {
+  width: 52px;
+  height: 72px;
+  border-radius: 8px;
+  border: 1px dashed #cbd5e1;
+  background-color: #f8fafc;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  text-align: center;
+  padding: 0.25rem;
+}
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  padding: 2rem;
+}
+
+.auth-error {
+  background-color: #feecec;
+  color: var(--danger);
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.auth-switch-btn {
+  margin-top: 1rem;
+  border: none;
+  background: transparent;
+  color: var(--primary);
+  font-weight: 600;
+  cursor: pointer;
 }

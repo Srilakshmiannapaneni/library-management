@@ -19,4 +19,7 @@ public class BookRequestDTO {
     @NotBlank(message = "Author is required")
     @Size(max = 255, message = "Author cannot exceed 255 characters")
     private String author;
+
+    @Size(max = 255, message = "Cover image name cannot exceed 255 characters")
+    private String coverImage;
 }

@@ -1,24 +1,35 @@
 import React from 'react';
-import { Outlet, Link, useLocation } from 'react-router-dom';
-import { Book, Users, BookOpenCheck, LayoutDashboard } from 'lucide-react';
+import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
+import { Book, Users, BookOpenCheck, LayoutDashboard, LogOut } from 'lucide-react';
 import '../index.css';
+import { getStoredUser, isAdmin } from '../auth';
 
 const Layout = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const user = getStoredUser();
+  const admin = isAdmin();
 
   const navItems = [
     { path: '/', label: 'Dashboard', icon: <LayoutDashboard size={20} /> },
     { path: '/books', label: 'Books', icon: <Book size={20} /> },
-    { path: '/members', label: 'Members', icon: <Users size={20} /> },
-    { path: '/issues', label: 'Issues', icon: <BookOpenCheck size={20} /> },
+    ...(admin ? [
+      { path: '/members', label: 'Members', icon: <Users size={20} /> },
+      { path: '/issues', label: 'Issues', icon: <BookOpenCheck size={20} /> }
+    ] : []),
   ];
+
+  const handleLogout = () => {
+    localStorage.removeItem('libraryUser');
+    navigate('/auth');
+  };
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
       {/* Sidebar */}
       <aside className="glass-panel" style={{ width: '260px', padding: '2rem 1rem', margin: '1rem', display: 'flex', flexDirection: 'column' }}>
         <div style={{ marginBottom: '3rem', padding: '0 1rem' }}>
-          <h1 style={{ fontSize: '1.5rem', fontWeight: '700', background: 'linear-gradient(to right, #3b82f6, #8b5cf6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+          <h1 style={{ fontSize: '1.5rem', fontWeight: '700', color: '#1f2937' }}>
             LibraryManager
           </h1>
         </div>
@@ -36,8 +47,8 @@ const Layout = () => {
                   gap: '1rem',
                   padding: '1rem',
                   borderRadius: '8px',
-                  color: isActive ? 'white' : 'var(--text-muted)',
-                  backgroundColor: isActive ? 'rgba(59, 130, 246, 0.1)' : 'transparent',
+                  color: isActive ? 'var(--primary)' : 'var(--text-muted)',
+                  backgroundColor: isActive ? '#eff6ff' : 'transparent',
                   transition: 'all 0.2s',
                   fontWeight: isActive ? '600' : '500'
                 }}
@@ -48,6 +59,15 @@ const Layout = () => {
             );
           })}
         </nav>
+
+        <div style={{ marginTop: 'auto', padding: '1rem' }}>
+          <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
+            {user?.name ? `Signed in as ${user.name} (${user?.role || 'USER'})` : 'Signed in'}
+          </p>
+          <button type="button" className="btn" style={{ width: '100%', justifyContent: 'center', backgroundColor: '#f3f4f6', color: '#111827' }} onClick={handleLogout}>
+            <LogOut size={16} /> Logout
+          </button>
+        </div>
       </aside>
 
       {/* Main Content */}

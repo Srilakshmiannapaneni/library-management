@@ -21,6 +21,9 @@ public class Book {
     @Column(nullable = false)
     private String author;
 
+    @Column(name = "cover_image")
+    private String coverImage;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "availability_status", nullable = false)
     private AvailabilityStatus availabilityStatus;
